@@ -9,7 +9,7 @@ async function generatePlan() {
     const skill = document.getElementById("skill").value;
     const daysLeft = document.getElementById("daysLeft").value;
 
-    const response = await fetch("http://localhost:5000/study-plan", {
+    const response = await fetch("https://ai-college-survival-assistant-1.onrender.com/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
