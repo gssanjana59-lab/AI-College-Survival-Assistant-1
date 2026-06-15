@@ -9,22 +9,16 @@ async function generatePlan() {
     const skill = document.getElementById("skill").value;
     const daysLeft = document.getElementById("daysLeft").value;
 
-    const response = await fetch("https://ai-college-survival-assistant-1.onrender.com/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            branch,
-            semester,
-            cgpa,
-            hours,
-            placement,
-            attendance,
-            skill,
-            daysLeft
-        })
-    });
+    const response = await fetch(
+  "https://ai-college-survival-assistant-1.onrender.com/study-plan",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }
+);
 
     const data = await response.json();
 
