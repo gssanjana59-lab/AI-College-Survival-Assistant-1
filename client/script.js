@@ -1,37 +1,90 @@
+function getFormData() {
+    return {
+        branch: document.getElementById("branch").value.trim(),
+        semester: document.getElementById("semester").value.trim(),
+        cgpa: document.getElementById("cgpa").value.trim(),
+        hours: document.getElementById("hours").value.trim(),
+        placement: document.getElementById("placement").value.trim(),
+        attendance: document.getElementById("attendance").value.trim(),
+        skill: document.getElementById("skill").value.trim(),
+        daysLeft: document.getElementById("daysLeft").value.trim()
+    };
+}
+
+function validateData(data) {
+
+    for (const key in data) {
+        if (!data[key]) {
+            alert(`Please fill ${key}`);
+            return false;
+        }
+    }
+
+    if (data.cgpa < 0 || data.cgpa > 10) {
+        alert("CGPA must be between 0 and 10");
+        return false;
+    }
+
+    if (data.attendance < 0 || data.attendance > 100) {
+        alert("Attendance must be between 0 and 100");
+        return false;
+    }
+
+    return true;
+}
+
 async function generatePlan() {
 
-    const branch = document.getElementById("branch").value;
-    const semester = document.getElementById("semester").value;
-    const cgpa = document.getElementById("cgpa").value;
-    const hours = document.getElementById("hours").value;
-    const placement = document.getElementById("placement").value;
-    const attendance = document.getElementById("attendance").value;
-    const skill = document.getElementById("skill").value;
-    const daysLeft = document.getElementById("daysLeft").value;
+    const studentData = getFormData();
 
-    const studentData = {
-        branch,
-        semester,
-        cgpa,
-        hours,
-        placement,
-        attendance,
-        skill,
-        daysLeft
-    };
+    if (!validateData(studentData)) {
+        return;
+    }
 
-    const response = await fetch(
-        "https://ai-college-survival-assistant-1.onrender.com/study-plan",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(studentData)
+    const result = document.getElementById("result");
+
+    result.innerHTML = `
+        <div class="loading-card">
+            <h2>🤖 AI is generating your survival report...</h2>
+            <p>Please wait a few seconds.</p>
+        </div>
+    `;
+
+    try {
+
+        const response = await fetch(
+            "https://ai-college-survival-assistant-1.onrender.com/study-plan",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(studentData)
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Server Error");
         }
-    );
 
-    const data = await response.json();
+        const data = await response.json();
+
+        renderDashboard(studentData, data.plan);
+
+    } catch (error) {
+
+        console.error(error);
+
+        result.innerHTML = `
+            <div class="error-card">
+                <h2>❌ Something went wrong</h2>
+                <p>Please try again later.</p>
+            </div>
+        `;
+    }
+}
+
+function renderDashboard(studentData, aiPlan) {
 
     const result = document.getElementById("result");
 
@@ -45,14 +98,14 @@ async function generatePlan() {
 
         <div class="card">
             <h3>📚 Academic Profile</h3>
-            <p><strong>Branch:</strong> ${branch}</p>
-            <p><strong>Semester:</strong> ${semester}</p>
-            <p><strong>CGPA:</strong> ${cgpa}</p>
+            <p><strong>Branch:</strong> ${studentData.branch}</p>
+            <p><strong>Semester:</strong> ${studentData.semester}</p>
+            <p><strong>CGPA:</strong> ${studentData.cgpa}</p>
         </div>
 
         <div class="card">
             <h3>⏰ Study Schedule</h3>
-            <p>${hours} Hours Daily</p>
+            <p>${studentData.hours} Hours Daily</p>
             <ul>
                 <li>Core Subjects</li>
                 <li>DSA Practice</li>
@@ -63,7 +116,7 @@ async function generatePlan() {
 
         <div class="card">
             <h3>🚀 Placement Tracker</h3>
-            <p>${placement} Months Left</p>
+            <p>${studentData.placement} Months Left</p>
             <ul>
                 <li>Daily Coding</li>
                 <li>Aptitude Practice</li>
@@ -74,21 +127,24 @@ async function generatePlan() {
         <div class="card">
             <h3>📊 Attendance Status</h3>
             <div class="progress">
-                <div class="progress-fill" style="width:${attendance}%">
-                    ${attendance}%
+                <div
+                    class="progress-fill"
+                    style="width:${studentData.attendance}%"
+                >
+                    ${studentData.attendance}%
                 </div>
             </div>
         </div>
 
         <div class="card">
             <h3>🛠 Skill Focus</h3>
-            <p>${skill}</p>
+            <p>${studentData.skill}</p>
             <p>Build portfolio projects and upload to GitHub.</p>
         </div>
 
         <div class="card">
             <h3>🔥 Exam Countdown</h3>
-            <h1>${daysLeft}</h1>
+            <h1>${studentData.daysLeft}</h1>
             <p>Days Remaining</p>
         </div>
 
@@ -97,8 +153,9 @@ async function generatePlan() {
     <div class="ai-section">
         <h2>🤖 AI Recommendations</h2>
         <div class="ai-output">
-            ${data.plan || "No response"}
+            ${aiPlan || "No recommendations available"}
         </div>
     </div>
+
     `;
 }

@@ -9,6 +9,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const PORT = process.env.PORT || 5000;
+
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY
 });
@@ -19,10 +21,43 @@ console.log(
 );
 
 app.get("/", (req, res) => {
-  res.send("AI College Survival Assistant Running");
+  res.json({
+    status: "success",
+    message: "AI College Survival Assistant API Running"
+  });
 });
 
+function validateStudentData(data) {
+
+  const requiredFields = [
+    "branch",
+    "semester",
+    "cgpa",
+    "hours",
+    "placement",
+    "attendance",
+    "skill",
+    "daysLeft"
+  ];
+
+  for (const field of requiredFields) {
+    if (!data[field]) {
+      return `Missing field: ${field}`;
+    }
+  }
+
+  return null;
+}
+
 app.post("/study-plan", async (req, res) => {
+
+  const validationError = validateStudentData(req.body);
+
+  if (validationError) {
+    return res.status(400).json({
+      error: validationError
+    });
+  }
 
   const {
     branch,
@@ -37,17 +72,17 @@ app.post("/study-plan", async (req, res) => {
 
   try {
 
-    console.log("POST REQUEST RECEIVED");
+    console.log("Generating AI Study Plan...");
 
     const prompt = `
 You are an expert AI College Mentor.
 
-Student Details:
+Student Profile:
 
 Branch: ${branch}
 Semester: ${semester}
 CGPA: ${cgpa}
-Daily Study Hours: ${hours}
+Study Hours: ${hours}
 Placement Readiness: ${placement}/10
 Attendance: ${attendance}%
 Skill: ${skill}
@@ -56,12 +91,12 @@ Days Left For Exam: ${daysLeft}
 Generate:
 
 1. Personalized Study Plan
-2. Placement Strategy
+2. Placement Preparation Strategy
 3. Project Recommendations
-4. Exam Preparation Strategy
+4. Exam Preparation Roadmap
 5. Career Guidance
 
-Make it detailed and motivational.
+Keep response motivational and practical.
 `;
 
     const result = await ai.models.generateContent({
@@ -69,160 +104,81 @@ Make it detailed and motivational.
       contents: prompt
     });
 
-    res.json({
+    return res.status(200).json({
+      success: true,
+      source: "Gemini AI",
       plan: result.text
     });
 
   } catch (error) {
 
-    console.log("GEMINI FAILED");
-    console.error(error.message);
+    console.error("Gemini API Error:", error.message);
 
-    let plan = `
+    let fallbackPlan = `
 🎓 AI COLLEGE SURVIVAL REPORT
-
-━━━━━━━━━━━━━━━━━━━━━━
-
-📚 ACADEMIC PROFILE
 
 Branch: ${branch}
 Semester: ${semester}
 CGPA: ${cgpa}
-Daily Study Time: ${hours} Hours
 
-━━━━━━━━━━━━━━━━━━━━━━
+═══════════════════════
 
-📖 PERSONALIZED STUDY PLAN
+📚 STUDY PLAN
 
-• ${Math.max(1, Math.floor(hours * 0.4))} Hours Core Subjects
+• Core Subjects: ${Math.max(1, Math.floor(hours * 0.4))} Hours
 
-• ${Math.max(1, Math.floor(hours * 0.3))} Hours DSA / Problem Solving
+• Coding Practice: ${Math.max(1, Math.floor(hours * 0.3))} Hours
 
-• ${Math.max(1, Math.floor(hours * 0.2))} Hours Projects
+• Projects: ${Math.max(1, Math.floor(hours * 0.2))} Hours
 
-• ${Math.max(1, Math.floor(hours * 0.1))} Hours Revision
+• Revision: ${Math.max(1, Math.floor(hours * 0.1))} Hours
 
-━━━━━━━━━━━━━━━━━━━━━━
+═══════════════════════
 
 🚀 PLACEMENT STRATEGY
 
-• Solve 3 Coding Problems Daily
+• Solve Coding Questions Daily
 
 • Practice Aptitude Tests
 
-• Update Resume Weekly
+• Build Resume
 
 • Attend Mock Interviews
 
-• Build LinkedIn Profile
+• Improve LinkedIn Profile
 
-`;
+═══════════════════════
 
-    if (Number(attendance) < 75) {
-      plan += `
-⚠ ATTENDANCE ALERT
+💻 PROJECT IDEAS
 
-Current Attendance: ${attendance}%
+• ${skill} Portfolio Project
 
-Try attending every remaining class.
-`;
-    }
+• Student Management System
 
-    if (Number(daysLeft) <= 7) {
-      plan += `
-━━━━━━━━━━━━━━━━━━━━━━
+• Placement Tracker
 
-📖 EXAM MODE ACTIVATED
+• AI Career Advisor
 
-Day 1-2:
-Important Topics
-
-Day 3-4:
-Previous Year Questions
-
-Day 5:
-Revision
-
-Day 6:
-Mock Test
-
-Day 7:
-Final Revision
-`;
-    }
-
-    plan += `
-━━━━━━━━━━━━━━━━━━━━━━
-
-💻 PROJECT RECOMMENDATIONS
-
-1. ${skill} Portfolio Project
-
-2. Student Management System
-
-3. AI Career Advisor
-
-4. Placement Tracker
-
-5. Smart Attendance System
-
-━━━━━━━━━━━━━━━━━━━━━━
+═══════════════════════
 
 🎯 CAREER GUIDANCE
-`;
 
-    if (Number(cgpa) >= 8) {
+Focus on practical skills, projects,
+problem solving, and interview preparation.
 
-      plan += `
-• Target Product Companies
-
-• Apply for Internships
-
-• Build Advanced Projects
-
-• Prepare for SDE Roles
-`;
-
-    } else {
-
-      plan += `
-• Focus on Improving CGPA
-
-• Strengthen Fundamentals
-
-• Complete Industry Projects
-
-• Build Strong Resume
-`;
-    }
-
-    plan += `
-━━━━━━━━━━━━━━━━━━━━━━
-
-🤖 AI ANALYSIS
-
-Attendance Score: ${attendance}%
-
-Placement Readiness: ${placement}/10
-
-Preferred Skill: ${skill}
-
-Recommendation:
-
-You should focus on practical learning, projects,
-coding practice, and interview preparation.
-Consistency for the next ${daysLeft} days can
-significantly improve your academic and placement performance.
+Stay consistent for the next ${daysLeft} days.
 
 Good Luck! 🚀
 `;
 
-    res.json({
-      plan
+    return res.status(200).json({
+      success: true,
+      source: "Fallback Recommendation Engine",
+      plan: fallbackPlan
     });
   }
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

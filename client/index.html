@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AI College Survival Assistant</title>
 
     <link rel="stylesheet" href="style.css">
@@ -15,37 +18,88 @@
 
         <div class="header">
             <h1>🎓 AI College Survival Assistant</h1>
-            <p>Personalized Study, Placement & Exam Planner</p>
+            <p>
+                Personalized Study Planning, Placement Preparation,
+                Exam Strategy & Career Guidance
+            </p>
         </div>
 
         <div class="form-card">
 
-            <input id="branch" placeholder="📚 Branch">
+            <label for="branch">📚 Branch</label>
+            <input
+                id="branch"
+                type="text"
+                placeholder="Enter Branch (e.g. CSE)"
+                aria-label="Branch">
 
-            <input id="semester" placeholder="🎯 Semester">
+            <label for="semester">🎯 Semester</label>
+            <input
+                id="semester"
+                type="number"
+                placeholder="Enter Semester"
+                aria-label="Semester">
 
-            <input id="cgpa" placeholder="⭐ CGPA">
+            <label for="cgpa">⭐ CGPA</label>
+            <input
+                id="cgpa"
+                type="number"
+                step="0.1"
+                placeholder="Enter CGPA"
+                aria-label="CGPA">
 
-            <input id="hours" placeholder="⏰ Study Hours">
+            <label for="hours">⏰ Daily Study Hours</label>
+            <input
+                id="hours"
+                type="number"
+                placeholder="Enter Study Hours"
+                aria-label="Study Hours">
 
-            <input id="placement" placeholder="🚀 Months Left For Placement">
+            <label for="placement">🚀 Months Left For Placement</label>
+            <input
+                id="placement"
+                type="number"
+                placeholder="Enter Months Left"
+                aria-label="Placement Timeline">
 
-            <input id="attendance" placeholder="📅 Attendance %">
+            <label for="attendance">📅 Attendance Percentage</label>
+            <input
+                id="attendance"
+                type="number"
+                placeholder="Enter Attendance Percentage"
+                aria-label="Attendance">
 
-            <input id="skill" placeholder="💻 Skill">
+            <label for="skill">💻 Primary Skill</label>
+            <input
+                id="skill"
+                type="text"
+                placeholder="Example: AI/ML, Web Development"
+                aria-label="Skill">
 
-            <input id="daysLeft" placeholder="📝 Days Left For Exam">
+            <label for="daysLeft">📝 Days Left For Exam</label>
+            <input
+                id="daysLeft"
+                type="number"
+                placeholder="Enter Days Remaining"
+                aria-label="Days Left For Exam">
 
             <button onclick="generatePlan()">
-    Generate AI Survival Report
-</button>
+                Generate AI Survival Report
+            </button>
 
-<div class="action-buttons">
-    <button onclick="downloadPDF()">📥 Download PDF</button>
-    <button onclick="location.reload()">🔄 Reset</button>
-</div>
+            <div class="action-buttons">
+                <button onclick="downloadPDF()">
+                    📥 Download PDF
+                </button>
 
-<div id="result"></div>
+                <button onclick="location.reload()">
+                    🔄 Reset
+                </button>
+            </div>
+
+        </div>
+
+        <div id="result" aria-live="polite"></div>
 
     </div>
 
