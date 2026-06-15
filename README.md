@@ -1,101 +1,134 @@
 # 🎓 AI College Survival Assistant
 
-A full-stack web application that helps college students generate personalized study plans, placement preparation strategies, exam schedules, and project recommendations.
+## 📌 Problem Statement
 
-# Problem Statement
+College students often struggle with:
 
-Students often struggle with:
+* Managing study schedules efficiently
+* Preparing for placements alongside academics
+* Maintaining attendance requirements
+* Planning exam preparation effectively
+* Identifying relevant projects and skills for career growth
 
-- Managing study schedules
-- Preparing for placements
-- Tracking attendance
-- Planning exam preparation
-- Choosing relevant projects and skills
-# Markdown
+Many students lack personalized guidance, resulting in poor time management and reduced productivity.
 
-# Features
-# Architecture
-# Installation
-# Deployment
-# Screenshots
-# Future Enhancements
-# Testing
-# Solution
+---
 
-AI College Survival Assistant analyzes student academic details and generates:
+## 💡 Solution
 
-- Personalized Study Plans
-- Placement Preparation Strategies
-- Exam Roadmaps
-- Project Recommendations
-- Career Guidance
+AI College Survival Assistant is a full-stack web application that analyzes a student's academic profile and generates personalized recommendations.
 
-This directly addresses student productivity and academic planning challenges.
+The platform provides:
+
+* 📚 Personalized Study Plans
+* 🚀 Placement Preparation Strategies
+* 📝 Exam Preparation Roadmaps
+* 💻 Project Recommendations
+* 🎯 Career Guidance
+* 📊 Attendance Insights
+
+This helps students make data-driven academic and career decisions.
+
+---
 
 ## 🚀 Features
 
-- Personalized Study Plan Generator
-- Placement Readiness Analysis
-- Attendance Warning System
-- Exam Preparation Mode
-- Skill-Based Project Recommendations
-- Career Guidance Suggestions
-- Clean and Responsive UI
-- REST API using Node.js and Express
+* Personalized Study Plan Generator
+* Placement Readiness Analysis
+* Attendance Warning System
+* Exam Preparation Mode
+* Skill-Based Project Recommendations
+* Career Guidance Suggestions
+* Responsive Dashboard UI
+* REST API Backend
+* AI-Powered Recommendations
+* Fallback Recommendation Engine
 
-## 🛠️ Tech Stack
+---
+
+## 🏗️ Architecture
+
+Frontend (HTML, CSS, JavaScript)
+
+⬇
+
+Express REST API
+
+⬇
+
+AI Recommendation Engine
+
+⬇
+
+Personalized Student Report
+
+---
+
+## 🛠 Tech Stack
 
 ### Frontend
-- HTML
-- CSS
-- JavaScript
+
+* HTML5
+* CSS3
+* JavaScript
 
 ### Backend
-- Node.js
-- Express.js
-- CORS
 
-## 📸 Screenshots
+* Node.js
+* Express.js
+* CORS
 
-### Main Interface
+### AI
 
-<img width="1366" height="768" alt="Screenshot (92)" src="https://github.com/user-attachments/assets/47fb726a-8fa6-43fe-a335-bf25f3f84b21" />
+* Gemini API
+* Custom Fallback Recommendation Engine
 
+### Deployment
 
-### Generated Survival Report
-<img width="1366" height="768" alt="Screenshot (93)" src="https://github.com/user-attachments/assets/b1f1268a-a972-42e0-a928-495c7889dfa5" />
+* Vercel
+* Render
 
-<img width="1366" height="768" alt="Screenshot (94)" src="https://github.com/user-attachments/assets/67f8f521-9b54-4b55-8e8f-2cfa9dbb7685" />
-
-<img width="1366" height="768" alt="Screenshot (95)" src="https://github.com/user-attachments/assets/3f66ee83-8537-460e-b912-4ef258f9d6ed" />
-
+---
 
 ## 📂 Project Structure
 
-```text
 AI-College-Survival-Assistant
-│
+
 ├── client
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
+
+│ ├── index.html
+
+│ ├── style.css
+
+│ └── script.js
+
 │
+
 ├── server
-│   └── app.js
+
+│ ├── app.js
+
+│ └── test.js
+
 │
+
+├── .gitignore
+
 ├── package.json
+
 └── README.md
-```
+
+---
 
 ## ⚙️ Installation
 
-Clone the repository:
+Clone repository:
 
 ```bash
 git clone https://github.com/gssanjana59-lab/AI-College-Survival-Assistant-1.git
 ```
 
-Go to project folder:
+Navigate to project:
 
 ```bash
 cd AI-College-Survival-Assistant-1
@@ -113,60 +146,102 @@ Start server:
 npm start
 ```
 
-Server runs on:
+Run tests:
 
-```text
-http://localhost:5000
+```bash
+npm test
 ```
 
-Open frontend using Live Server:
+---
 
-```text
-http://127.0.0.1:5500/client/index.html
+## 🔌 API Endpoint
+
+### Generate Study Plan
+
+POST /study-plan
+
+Request Body:
+
+```json
+{
+  "branch": "CSE",
+  "semester": "6",
+  "cgpa": "8.2",
+  "hours": "5",
+  "placement": "8",
+  "attendance": "85",
+  "skill": "AI/ML",
+  "daysLeft": "15"
+}
 ```
 
-## 🎯 How It Works
+Response:
 
-Users enter:
+```json
+{
+  "success": true,
+  "plan": "Generated Report"
+}
+```
 
-- Branch
-- Semester
-- CGPA
-- Study Hours
-- Placement Readiness
-- Attendance Percentage
-- Skill Interest
-- Days Left for Exam
+---
 
-The system generates:
+## 📸 Screenshots
+<img width="1366" height="768" alt="Screenshot (92)" src="https://github.com/user-attachments/assets/47fb726a-8fa6-43fe-a335-bf25f3f84b21" />
+<img width="1366" height="768" alt="Screenshot (93)" src="https://github.com/user-attachments/assets/b1f1268a-a972-42e0-a928-495c7889dfa5" /> 
+<img width="1366" height="768" alt="Screenshot (94)" src="https://github.com/user-attachments/assets/67f8f521-9b54-4b55-8e8f-2cfa9dbb7685" /> 
+<img width="1366" height="768" alt="Screenshot (95)" src="https://github.com/user-attachments/assets/3f66ee83-8537-460e-b912-4ef258f9d6ed" />
 
-- Study Plan
-- Placement Strategy
-- Attendance Alerts
-- Project Suggestions
-- Exam Preparation Plan
-- Career Recommendations
+* Homepage
+* Dashboard
+* AI Recommendation Output
 
-## 🌟 Future Improvements
+---
 
-- OpenAI/Gemini Integration
-- PDF Report Download
-- Authentication System
-- MongoDB Database
-- AI Chat Assistant
-- Weekly Planner Dashboard
+## 🧪 Testing
 
-# Solution
+Basic validation tests are implemented using Node.js assertions.
 
-AI College Survival Assistant analyzes student academic details and generates:
+Run:
 
-- Personalized Study Plans
-- Placement Preparation Strategies
-- Exam Roadmaps
-- Project Recommendations
-- Career Guidance
+```bash
+npm test
+```
 
-This directly addresses student productivity and academic planning challenges.
+Test Coverage:
+
+* CGPA Validation
+* Input Validation
+* Recommendation Engine Checks
+
+---
+
+## 🔒 Security
+
+* API keys stored in environment variables
+* .env file excluded using .gitignore
+* Backend request validation implemented
+* Sensitive credentials not committed to GitHub
+
+---
+
+## 🌟 Future Enhancements
+
+* User Authentication
+* MongoDB Integration
+* AI Chat Assistant
+* Weekly Planner
+* PDF Export Reports
+* Analytics Dashboard
+* Performance Tracking
+
+---
+
+## 🌐 Live Demo
+
+https://ai-college-survival-assistant-1-m1j.vercel.app
+
+---
 
 ## 👩‍💻 Author
 
@@ -174,9 +249,7 @@ Sanjana
 
 GitHub:
 https://github.com/gssanjana59-lab
-LIVE DEMO LINK:
-https://ai-college-survival-assistant-1-m1j.vercel.app?_vercel_share=AN6sCLn60oDz4KxwJPSCXMCrpuqbbxQX
-Deploy link:
-https://ai-college-survival-assistant-1-m1j.vercel.app?_vercel_share=AN6sCLn60oDz4KxwJPSCXMCrpuqbbxQX
 
-⭐ If you like this project, give it a star!
+---
+
+⭐ If you like this project, consider giving it a star.
