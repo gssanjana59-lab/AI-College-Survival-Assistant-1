@@ -29,11 +29,16 @@ A full-stack web application that helps college students generate personalized s
 
 ### Main Interface
 
-(Add screenshot here)
+<img width="1366" height="768" alt="Screenshot (92)" src="https://github.com/user-attachments/assets/47fb726a-8fa6-43fe-a335-bf25f3f84b21" />
+
 
 ### Generated Survival Report
+<img width="1366" height="768" alt="Screenshot (93)" src="https://github.com/user-attachments/assets/b1f1268a-a972-42e0-a928-495c7889dfa5" />
 
-(Add screenshot here)
+<img width="1366" height="768" alt="Screenshot (94)" src="https://github.com/user-attachments/assets/67f8f521-9b54-4b55-8e8f-2cfa9dbb7685" />
+
+<img width="1366" height="768" alt="Screenshot (95)" src="https://github.com/user-attachments/assets/3f66ee83-8537-460e-b912-4ef258f9d6ed" />
+
 
 ## 📂 Project Structure
 
@@ -127,7 +132,9 @@ Sanjana
 
 GitHub:
 https://github.com/gssanjana59-lab
-
----
+LIVE DEMO LINK:
+https://ai-college-survival-assistant-1-m1j.vercel.app?_vercel_share=AN6sCLn60oDz4KxwJPSCXMCrpuqbbxQX
+Deploy link:
+https://ai-college-survival-assistant-1-m1j.vercel.app?_vercel_share=AN6sCLn60oDz4KxwJPSCXMCrpuqbbxQX
 
 ⭐ If you like this project, give it a star!
