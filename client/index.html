@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI College Survival Assistant</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>🎓 AI College Survival Assistant</h1>
+            <p>Personalized Study, Placement & Exam Planner</p>
+        </div>
+
+        <div class="form-card">
+
+            <input id="branch" placeholder="📚 Branch">
+
+            <input id="semester" placeholder="🎯 Semester">
+
+            <input id="cgpa" placeholder="⭐ CGPA">
+
+            <input id="hours" placeholder="⏰ Study Hours">
+
+            <input id="placement" placeholder="🚀 Months Left For Placement">
+
+            <input id="attendance" placeholder="📅 Attendance %">
+
+            <input id="skill" placeholder="💻 Skill">
+
+            <input id="daysLeft" placeholder="📝 Days Left For Exam">
+
+            <button onclick="generatePlan()">
+    Generate AI Survival Report
+</button>
+
+<div class="action-buttons">
+    <button onclick="downloadPDF()">📥 Download PDF</button>
+    <button onclick="location.reload()">🔄 Reset</button>
+</div>
+
+<div id="result"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
