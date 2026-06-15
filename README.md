@@ -1,6 +1,27 @@
 # 🎓 AI College Survival Assistant
 
 A full-stack web application that helps college students generate personalized study plans, placement preparation strategies, exam schedules, and project recommendations.
+# Problem Statement
+
+Students often struggle with:
+
+- Managing study schedules
+- Preparing for placements
+- Tracking attendance
+- Planning exam preparation
+- Choosing relevant projects and skills
+
+# Solution
+
+AI College Survival Assistant analyzes student academic details and generates:
+
+- Personalized Study Plans
+- Placement Preparation Strategies
+- Exam Roadmaps
+- Project Recommendations
+- Career Guidance
+
+This directly addresses student productivity and academic planning challenges.
 
 ## 🚀 Features
 
