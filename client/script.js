@@ -9,16 +9,27 @@ async function generatePlan() {
     const skill = document.getElementById("skill").value;
     const daysLeft = document.getElementById("daysLeft").value;
 
+    const studentData = {
+        branch,
+        semester,
+        cgpa,
+        hours,
+        placement,
+        attendance,
+        skill,
+        daysLeft
+    };
+
     const response = await fetch(
-  "https://ai-college-survival-assistant-1.onrender.com/study-plan",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  }
-);
+        "https://ai-college-survival-assistant-1.onrender.com/study-plan",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(studentData)
+        }
+    );
 
     const data = await response.json();
 
@@ -89,6 +100,5 @@ async function generatePlan() {
             ${data.plan || "No response"}
         </div>
     </div>
-
     `;
 }
